@@ -8,7 +8,7 @@ env:
 
 before_install:
     - sudo rm /usr/local/bin/docker-compose
-    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VESION}/docker-compose-`uname -s` - `uname -m` > docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VESION}/docker-compose-`uname -s`-`uname -m` > docker-compose
     - chmod +x docker-compose
     - sudo mv docker-compose /usr/local/bin
 
@@ -20,4 +20,4 @@ script:
     - docker-compose -f docker-compose-dev.yml run users flake8 project
 
 after_script:
-    - docker-compose -f docker-compose-dev.yml down 
+    - docker-compose -f docker-compose-dev.yml down
