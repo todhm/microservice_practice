@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Route, Switch } from "react-router-dom";
 
 import UsersList from "./components/UsersList";
 import AddUser from "./components/AddUser";
+import About from "./components/About";
 
-export class App extends Component {
+export default class App extends Component {
   state = {
     users: [],
     username: "",
@@ -47,23 +49,34 @@ export class App extends Component {
   render() {
     const { users, username, email } = this.state;
     return (
-      <section>
-        <div className="section">
-          <div className="container">
-            <div className="column is-one-third">
+      <section className="section">
+        <div className="container">
+          <div className="columns">
+            <div className="column is-half">
               <br />
-              <h1 className="title is-1 is-1">All Users</h1>
-              <hr />
-              <br />
-              <AddUser
-                username={username}
-                email={email}
-                addUser={this.addUser}
-                handleChange={this.handleChange}
-              />
-              <br />
-              <br />
-              <UsersList users={users} />
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={() => (
+                    <div>
+                      <h1 className="title is-1 is-1">All Users</h1>
+                      <hr />
+                      <br />
+                      <AddUser
+                        username={username}
+                        email={email}
+                        addUser={this.addUser}
+                        handleChange={this.handleChange}
+                      />
+                      <br />
+                      <br />
+                      <UsersList users={users} />
+                    </div>
+                  )}
+                />
+                <Route exact path="/about" component={About} />
+              </Switch>
             </div>
           </div>
         </div>
