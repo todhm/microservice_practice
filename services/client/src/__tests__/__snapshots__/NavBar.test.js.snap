@@ -16,56 +16,68 @@ exports[`NavBar renders a snapshot properly 1`] = `
       >
         Hello, World!
       </strong>
+      <span
+        className="nav-toggle navbar-burger"
+        onClick={[Function]}
+      >
+        <span />
+        <span />
+        <span />
+      </span>
     </div>
     <div
       className="navbar-menu"
     >
-      <a
-        className="navbar-item"
-        href="/"
-        onClick={[Function]}
+      <div
+        className="navbar-start"
       >
-        Home
-      </a>
-      <a
-        className="navbar-item"
-        href="/about"
-        onClick={[Function]}
+        <a
+          className="navbar-item"
+          href="/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+        <a
+          className="navbar-item"
+          href="/about"
+          onClick={[Function]}
+        >
+          About
+        </a>
+        <a
+          className="navbar-item"
+          href="/status"
+          onClick={[Function]}
+        >
+          User Status
+        </a>
+      </div>
+      <div
+        className="navbar-end"
       >
-        About
-      </a>
-      <a
-        className="navbar-item"
-        href="/status"
-        onClick={[Function]}
-      >
-        User Status
-      </a>
-    </div>
-    <div
-      className="navbar-end"
-    >
-      <a
-        className="navbar-item"
-        href="/register"
-        onClick={[Function]}
-      >
-        Register
-      </a>
-      <a
-        className="navbar-item"
-        href="/login"
-        onClick={[Function]}
-      >
-        Log In
-      </a>
-      <a
-        className="navbar-item"
-        href="/register"
-        onClick={[Function]}
-      >
-        Log out
-      </a>
+        <a
+          className="navbar-item"
+          href="/register"
+          onClick={[Function]}
+        >
+          Register
+        </a>
+        <a
+          className="navbar-item"
+          href="/login"
+          onClick={[Function]}
+        >
+          Log In
+        </a>
+        <a
+          className="navbar-item"
+          href="/register"
+          onClick={[Function]}
+        >
+          Log out
+        </a>
+      </div>
     </div>
   </section>
 </nav>

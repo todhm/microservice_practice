@@ -6,12 +6,18 @@ import UsersList from "./components/UsersList";
 import AddUser from "./components/AddUser";
 import About from "./components/About";
 import NavBar from "./components/NavBar";
+import Form from "./components/Form";
 export default class App extends Component {
   state = {
     users: [],
     username: "",
     email: "",
-    title: "TestDriven.io"
+    title: "TestDriven.io",
+    formData:{
+      username:'',
+      email:'',
+      password:''
+    },
   };
   componentDidMount() {
     this.getUsers();
@@ -48,10 +54,10 @@ export default class App extends Component {
     this.setState(obj);
   };
   render() {
-    const { users, username, email, title } = this.state;
+    const { users,username,email,title,formData } = this.state;
     return (
       <div>
-        <NavBar title={this.state.title} />
+        <NavBar title={title} />
         <section className="section">
           <div className="container">
             <div className="columns">
@@ -78,6 +84,18 @@ export default class App extends Component {
                       </div>
                     )}
                   />
+                  <Route exact paht='/register' rencer={()=>(
+                    <Form
+                      formType={"Register"}
+                      formData={formData}
+                      />
+                  )}/>
+                  <Route exact paht='/register' rencer={()=>(
+                    <Form
+                      formType={"Register"}
+                      formData={formData}
+                      />
+                  )}/>
                   <Route exact path="/about" component={About} />
                 </Switch>
               </div>
