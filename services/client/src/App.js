@@ -7,7 +7,9 @@ import AddUser from "./components/AddUser";
 import About from "./components/About";
 import NavBar from "./components/NavBar";
 import Form from "./components/Form";
+
 export default class App extends Component {
+
   state = {
     users: [],
     username: "",
@@ -19,9 +21,11 @@ export default class App extends Component {
       password:''
     },
   };
+
   componentDidMount() {
     this.getUsers();
   }
+
   getUsers = () => {
     axios
       .get(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`)
@@ -48,11 +52,39 @@ export default class App extends Component {
         console.log(err);
       });
   };
+
   handleChange = e => {
     const obj = {};
     obj[e.target.name] = e.target.value;
     this.setState(obj);
   };
+
+  handleFormChange=(event)=>{
+    const obj = this.state.formData; 
+    obj[event.target.name] = event.target.value; 
+    this.setState(obj);
+  }
+
+  handleUserFormSubmit=(event)=>{
+    event.preventDefault(); 
+    const formType = window.location.href.split('/').reverse()[0];
+    let data = {
+      email: this.state.formData.email, 
+      password: this.state.formData.password,
+    };
+    if(formType==='register'){
+      data.username = this.state.formData.username; 
+    }
+
+    const url = `${process.env.REACT_APP_USERS_SERVICE_URL}/auth/${formType}`;
+    axios.post(url,data)
+    .then((res)=>{
+      console.log(res.data);
+    })
+    .catch((err)=>{console.log(err);});
+    
+  }
+
   render() {
     const { users,username,email,title,formData } = this.state;
     return (
@@ -84,16 +116,20 @@ export default class App extends Component {
                       </div>
                     )}
                   />
-                  <Route exact paht='/register' rencer={()=>(
+                  <Route exact path='/login' render={()=>(
                     <Form
-                      formType={"Register"}
+                      formType={"Login"}
                       formData={formData}
+                      handleUsersFormSubmit={this.handleUsersFormSubmit}
+                      handleFormChange={this.handleFormChange}
                       />
                   )}/>
-                  <Route exact paht='/register' rencer={()=>(
+                  <Route exact path='/register' render={()=>(
                     <Form
                       formType={"Register"}
                       formData={formData}
+                      handleUsersFormSubmit={this.handleUsersFormSubmit}
+                      handleFormChange={this.handleFormChange}
                       />
                   )}/>
                   <Route exact path="/about" component={About} />

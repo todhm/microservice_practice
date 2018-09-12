@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default props => (
+const NavBar= (props) => (
   <nav className="navbar is-dark" aria-label="main navigation">
     <section className="container">
       <div className="navbar-brand">
@@ -48,3 +48,5 @@ export default props => (
     </section>
   </nav>
 );
+
+export default NavBar; 

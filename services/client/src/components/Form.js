@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({formData,formType, handleFormChange,handleUsersFormSubmit})=>(
+const Form = ({formData,formType, handleFormChange,handleUsersFormSubmit})=>(
     <div>
         <h1 className="title is-1">{formType}</h1>
         <hr/><br/>
@@ -48,3 +48,5 @@ export default ({formData,formType, handleFormChange,handleUsersFormSubmit})=>(
         </form>
     </div>
 )
+
+export default Form; 
