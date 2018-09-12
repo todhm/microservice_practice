@@ -20,6 +20,7 @@ export default class App extends Component {
       email:'',
       password:''
     },
+    isAuthenticated: false,
   };
 
   componentDidMount() {
@@ -42,14 +43,18 @@ export default class App extends Component {
       username: this.state.username,
       email: this.state.email
     };
+    console.log(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`);
+    console.log(data);
     axios
       .post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`, data)
       .then(res => {
         this.getUsers();
         this.setState({ username: "", email: "" });
+        window.localStorage.setItem('authToken',res.data.auth_token);
+        this.setState({isAuthenticated: true})
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -80,9 +85,18 @@ export default class App extends Component {
     axios.post(url,data)
     .then((res)=>{
       console.log(res.data);
+      this.clearFormState();
     })
     .catch((err)=>{console.log(err);});
     
+  }
+
+  clearFormState=()=>{
+    this.setState({
+      formData: {username:'', email:'', password:''},
+      username:'',
+      email:'',
+    })
   }
 
   render() {
