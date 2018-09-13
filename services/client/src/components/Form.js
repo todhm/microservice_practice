@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Form = ({formData,formType, handleFormChange,handleUsersFormSubmit})=>(
+export default ({formData,formType, handleFormChange,handleUsersFormSubmit})=>(
     <div>
         <h1 className="title is-1">{formType}</h1>
         <hr/><br/>
-        <form onSubmit={(event)=>handleUsersFormSubmit(event)}>
+        <form onSubmit={handleUsersFormSubmit}>
             {formType === 'Register' &&
             <div className="field">
                 <input
@@ -49,4 +49,3 @@ const Form = ({formData,formType, handleFormChange,handleUsersFormSubmit})=>(
     </div>
 )
 
-export default Form; 

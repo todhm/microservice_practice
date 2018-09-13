@@ -1,10 +1,11 @@
-from flask import Blueprint, jsonify, request 
-from sqlalchemy import exc, or_ 
+from flask import Blueprint, jsonify, request, current_app as app
+from sqlalchemy import exc, or_
 
-from project.api.models import User 
+from project.api.models import User
 from project import db, bcrypt
 
 auth_blueprint = Blueprint('auth', __name__)
+
 
 @auth_blueprint.route('/auth/register', methods=['POST'])
 def register_user():
@@ -40,10 +41,10 @@ def register_user():
         else:
             response_object['message'] = 'Sorry. That user already exists.'
             return jsonify(response_object), 400
-    except (exc.IntegrityError, ValueError) as e: 
+    except (exc.IntegrityError, ValueError) as e:
         db.session.rollback()
         return jsonify(response_object), 400
-        
+
 
 @auth_blueprint.route('/auth/login', methods=['POST'])
 def login_user():
@@ -73,8 +74,8 @@ def login_user():
             else:
                 response_object['message'] = 'Invalid login information'
                 return jsonify(response_object), 400
-            
-        else: 
+
+        else:
             response_object['message'] = 'User does not exist.'
             return jsonify(response_object), 404
 
@@ -90,7 +91,7 @@ def logout_user():
         'status': 'fail',
         'message': 'Provide a valid auth token',
     }
-    if auth_header: 
+    if auth_header:
         auth_token = auth_header.split(' ')[1]
         resp = User.decode_auth_token(auth_token)
         if not isinstance(resp, str):
@@ -112,7 +113,7 @@ def get_user_status():
         'status': 'fail',
         'message': 'Provide a valid auth token.'
     }
-    if auth_header: 
+    if auth_header:
         auth_token = auth_header.split(' ')[1]
         resp = User.decode_auth_token(auth_token)
         if not isinstance(resp, str):

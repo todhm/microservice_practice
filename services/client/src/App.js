@@ -70,24 +70,24 @@ export default class App extends Component {
     this.setState(obj);
   }
 
-  handleUserFormSubmit=(event)=>{
+  handleUsersFormSubmit=event=>{
     event.preventDefault(); 
     const formType = window.location.href.split('/').reverse()[0];
     let data = {
       email: this.state.formData.email, 
       password: this.state.formData.password,
     };
-    if(formType==='register'){
+    if(formType.includes('register')){
       data.username = this.state.formData.username; 
     }
 
     const url = `${process.env.REACT_APP_USERS_SERVICE_URL}/auth/${formType}`;
     axios.post(url,data)
     .then((res)=>{
-      console.log(res.data);
       this.clearFormState();
+      window.localStorage.setItem('authToken', res.data.auth_token);
     })
-    .catch((err)=>{console.log(err);});
+    .catch((err)=>{console.log(err.response.data);});
     
   }
 
