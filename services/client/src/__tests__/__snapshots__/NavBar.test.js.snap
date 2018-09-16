@@ -72,7 +72,7 @@ exports[`NavBar renders a snapshot properly 1`] = `
         </a>
         <a
           className="navbar-item"
-          href="/register"
+          href="/logout"
           onClick={[Function]}
         >
           Log out

@@ -1,6 +1,11 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 
-export default ({formData,formType, handleFormChange,handleUsersFormSubmit})=>(
+export default ({formData,formType, handleFormChange,handleUsersFormSubmit, isAuthenticated})=>{
+    if(isAuthenticated){
+        return <Redirect to = '/'/>
+    }
+    return(
     <div>
         <h1 className="title is-1">{formType}</h1>
         <hr/><br/>
@@ -47,5 +52,6 @@ export default ({formData,formType, handleFormChange,handleUsersFormSubmit})=>(
             />
         </form>
     </div>
-)
+    )
+}
 

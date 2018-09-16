@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, Switch } from "react-router-dom";
-
 import UsersList from "./components/UsersList";
 import AddUser from "./components/AddUser";
 import About from "./components/About";
 import NavBar from "./components/NavBar";
 import Form from "./components/Form";
+import Logout from './components/Logout';
 
 export default class App extends Component {
 
@@ -86,6 +86,9 @@ export default class App extends Component {
     .then((res)=>{
       this.clearFormState();
       window.localStorage.setItem('authToken', res.data.auth_token);
+      this.setState({isAuthenticated: true});
+      this.getUsers();
+
     })
     .catch((err)=>{console.log(err.response.data);});
     
@@ -99,8 +102,13 @@ export default class App extends Component {
     })
   }
 
+  logoutUser=()=>{
+    window.localStorage.clear();
+    this.setState({isAuthenticated:false});
+  }
+
   render() {
-    const { users,username,email,title,formData } = this.state;
+    const { users, username, email, title, formData, isAuthenticated } = this.state;
     return (
       <div>
         <NavBar title={title} />
@@ -136,6 +144,7 @@ export default class App extends Component {
                       formData={formData}
                       handleUsersFormSubmit={this.handleUsersFormSubmit}
                       handleFormChange={this.handleFormChange}
+                      isAuthenticated={isAuthenticated}
                       />
                   )}/>
                   <Route exact path='/register' render={()=>(
@@ -144,9 +153,16 @@ export default class App extends Component {
                       formData={formData}
                       handleUsersFormSubmit={this.handleUsersFormSubmit}
                       handleFormChange={this.handleFormChange}
+                      isAuthenticated={isAuthenticated}
                       />
                   )}/>
                   <Route exact path="/about" component={About} />
+                  <Route exact path="/logout" render={()=>(
+                    <Logout 
+                      logoutUser={this.logoutUser}
+                      isAuthenticated={isAuthenticated}
+                    />
+                  )} />
                 </Switch>
               </div>
             </div>

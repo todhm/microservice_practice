@@ -10,7 +10,7 @@ exports[`\`{el.formType}\` Form renders a snapshot properly 1`] = `
   <hr />
   <br />
   <form
-    onSubmit={[Function]}
+    onSubmit={undefined}
   >
     <div
       className="field"
@@ -70,7 +70,7 @@ exports[`\`{el.formType}\` Form renders a snapshot properly 2`] = `
   <hr />
   <br />
   <form
-    onSubmit={[Function]}
+    onSubmit={undefined}
   >
     <div
       className="field"
