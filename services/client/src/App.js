@@ -70,7 +70,7 @@ export default class App extends Component {
     this.setState(obj);
   }
 
-  handleUsersFormSubmit=event=>{
+  handleUserFormSubmit=event=>{
     event.preventDefault(); 
     const formType = window.location.href.split('/').reverse()[0];
     let data = {
@@ -142,7 +142,7 @@ export default class App extends Component {
                     <Form
                       formType={"Login"}
                       formData={formData}
-                      handleUsersFormSubmit={this.handleUsersFormSubmit}
+                      handleUserFormSubmit={this.handleUserFormSubmit}
                       handleFormChange={this.handleFormChange}
                       isAuthenticated={isAuthenticated}
                       />
@@ -151,7 +151,7 @@ export default class App extends Component {
                     <Form
                       formType={"Register"}
                       formData={formData}
-                      handleUsersFormSubmit={this.handleUsersFormSubmit}
+                      handleUserFormSubmit={this.handleUserFormSubmit}
                       handleFormChange={this.handleFormChange}
                       isAuthenticated={isAuthenticated}
                       />

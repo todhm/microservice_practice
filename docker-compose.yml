@@ -3,6 +3,7 @@ version: '3.6'
 services:
 
     users:
+        container_name: users
         build:
             context: ./services/users
             dockerfile: Dockerfile-dev
@@ -20,6 +21,7 @@ services:
 
 
     users-db:
+        container_name: users-db
         build:
             context: ./services/users/project/db
             dockerfile: Dockerfile
@@ -32,6 +34,7 @@ services:
             - POSTGRES_PASSWORD=postgres
 
     client:
+        container_name: client
         build:
             context: ./services/client
             dockerfile: Dockerfile-dev
@@ -56,6 +59,7 @@ services:
 
 
     nginx:
+        container_name: nginx
         build:
             context: ./services/nginx
             dockerfile: Dockerfile-dev

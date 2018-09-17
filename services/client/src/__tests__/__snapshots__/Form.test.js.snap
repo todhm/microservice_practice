@@ -10,7 +10,7 @@ exports[`When not authenticated Login Form renders a snapshot properly 1`] = `
   <hr />
   <br />
   <form
-    onSubmit={undefined}
+    onSubmit={[Function]}
   >
     <div
       className="field"
@@ -57,7 +57,7 @@ exports[`When not authenticated Register Form renders a snapshot properly 1`] = 
   <hr />
   <br />
   <form
-    onSubmit={undefined}
+    onSubmit={[Function]}
   >
     <div
       className="field"

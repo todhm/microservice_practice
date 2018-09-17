@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
 
-export default ({formData,formType, handleFormChange,handleUsersFormSubmit, isAuthenticated})=>{
+export default ({formData,formType, handleFormChange,handleUserFormSubmit, isAuthenticated})=>{
     if(isAuthenticated){
         return <Redirect to = '/'/>
     }
@@ -9,7 +9,7 @@ export default ({formData,formType, handleFormChange,handleUsersFormSubmit, isAu
     <div>
         <h1 className="title is-1">{formType}</h1>
         <hr/><br/>
-        <form onSubmit={handleUsersFormSubmit}>
+        <form onSubmit={handleUserFormSubmit}>
             {formType === 'Register' &&
             <div className="field">
                 <input
