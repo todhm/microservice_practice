@@ -7,6 +7,7 @@ import About from "./components/About";
 import NavBar from "./components/NavBar";
 import Form from "./components/Form";
 import Logout from './components/Logout';
+import UserStatus from './components/UserStatus';
 
 export default class App extends Component {
 
@@ -24,7 +25,9 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    this.getUsers();
+    if(this.props.isAuthenticated){
+      this.getUsers();
+    }
   }
 
   getUsers = () => {
@@ -111,7 +114,7 @@ export default class App extends Component {
     const { users, username, email, title, formData, isAuthenticated } = this.state;
     return (
       <div>
-        <NavBar title={title} />
+        <NavBar title={title} isAuthenticated={isAuthenticated}/>
         <section className="section">
           <div className="container">
             <div className="columns">
@@ -163,6 +166,11 @@ export default class App extends Component {
                       isAuthenticated={isAuthenticated}
                     />
                   )} />
+                  <Route exact path='/status' render={()=>(
+                    <UserStatus
+                      isAuthenticated={isAuthenticated}
+                    />
+                  )}/>
                 </Switch>
               </div>
             </div>

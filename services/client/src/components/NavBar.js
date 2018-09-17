@@ -1,7 +1,10 @@
-import React from "react";
+import React,{Fragment} from "react";
 import { Link } from "react-router-dom";
 
-const NavBar= (props) => (
+export default  (props) => {
+  const {isAuthenticated,title} = props; 
+  console.log(isAuthenticated);
+  return (
   <nav className="navbar is-dark" aria-label="main navigation">
     <section className="container">
       <div className="navbar-brand">
@@ -29,24 +32,29 @@ const NavBar= (props) => (
           <Link to="/about" className="navbar-item">
             About
           </Link>
-          <Link to="/status" className="navbar-item">
-            User Status
-          </Link>
+          {isAuthenticated &&
+              <Link to="/status" className="navbar-item">User Status</Link>
+          }
         </div>
         <div className="navbar-end">
-          <Link to="/register" className="navbar-item">
-            Register
-          </Link>
-          <Link to="/login" className="navbar-item">
-            Log In
-          </Link>
+          {(isAuthenticated)?
           <Link to="/logout" className="navbar-item">
             Log out
-          </Link>
+          </Link>:
+          <Fragment>
+            <Link to="/register" className="navbar-item">
+              Register
+            </Link>
+            <Link to="/login" className="navbar-item">
+              Log In
+            </Link>
+          </Fragment>
+          }
+
+
         </div>
       </div>
     </section>
   </nav>
-);
+)};
 
-export default NavBar; 
