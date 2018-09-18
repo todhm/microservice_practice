@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UsersList renders a snapshot properly 1`] = `
+<div>
+  <ul>
+    <li>
+      <strong>
+        User ID:
+      </strong>
+      
+    </li>
+    <li>
+      <strong>
+        Email:
+      </strong>
+      
+    </li>
+    <li>
+      <strong>
+        Username:
+      </strong>
+      
+    </li>
+  </ul>
+</div>
+`;

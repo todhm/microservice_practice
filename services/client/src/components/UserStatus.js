@@ -5,7 +5,9 @@ export default class UserStatus extends Component{
     state={
         email:'',
         id:'',
-        username:''
+        username:'',
+        active:'',
+        admin:''
     };
 
     componentDidMount(){
@@ -23,8 +25,9 @@ export default class UserStatus extends Component{
         };
         return axios(options)
             .then((res)=>{
-                const{email,id,username} = res.data.data; 
-                this.setState({email,id,username})
+                const{email,id,username,active,admin} = res.data.data; 
+                this.setState({email,id,username,
+                active:String(active),admin:String(admin)})
             })
             .catch((error)=>{console.log(error.response.data);})
     }

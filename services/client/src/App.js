@@ -125,20 +125,7 @@ export default class App extends Component {
                     exact
                     path="/"
                     render={() => (
-                      <div>
-                        <h1 className="title is-1 is-1">All Users</h1>
-                        <hr />
-                        <br />
-                        <AddUser
-                          username={username}
-                          email={email}
-                          addUser={this.addUser}
-                          handleChange={this.handleChange}
-                        />
-                        <br />
-                        <br />
                         <UsersList users={users} />
-                      </div>
                     )}
                   />
                   <Route exact path='/login' render={()=>(

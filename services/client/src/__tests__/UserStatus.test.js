@@ -2,28 +2,26 @@ import React from "react";
 import { shallow } from "enzyme";
 import renderer from "react-test-renderer";
 import UserStatus from "../components/UserStatus";
+import {MemoryRouter as Router} from 'react-router-dom';
 
-const users = [
-  {
-    email: "hermanmu@gmail.com",
-    id: 1,
-    username: "michael"
-  },
-  {
-    email: "michael@mherman.org",
-    id: 2,
-    username: "michaelherman"
-  }
-];
+const authenticatedList = [true, false];
 
-users.forEach((user)=>{
-    test(`${user.username} render properly`, () => {
-        const wrapper = shallow(<UserStatus />);
+beforeAll(() => {
+  global.localStorage = {
+     authToken: 'someToken',
+     getItem: function () {
+        return 'someToken'
+     }
+  };
+});
+authenticatedList.forEach((auth)=>{
+    test(` render properly when auth is ${String(auth)}`, () => {
+        const wrapper = shallow(<UserStatus isAuthenticated={auth}/>);
       });
       
 })
 
 test("UsersList renders a snapshot properly", () => {
-  const tree = renderer.create(<UserStatus />).toJSON();
+  const tree = renderer.create(<Router><UserStatus isAuthenticated={true}/></Router>).toJSON();
   expect(tree).toMatchSnapshot();
 });
