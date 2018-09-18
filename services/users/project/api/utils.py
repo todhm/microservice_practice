@@ -18,9 +18,19 @@ def authenticate(f):
         if isinstance(resp, str):
             response_object['message'] = resp
             return jsonify(response_object), 401
-
         user = User.query.filter_by(id=resp).first()
         if not user or not user.active:
             return jsonify(response_object), 401
         return f(resp, *args, **kwargs)
     return decorated_function
+
+
+def is_admin(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    return user.admin
+
+
+def update_admin(email):
+    user = User.query.filter_by(email=email).first()
+    user.admin = True
+    db.session.commit()

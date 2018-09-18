@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 from flask import current_app
-import datetime 
+import datetime
 import jwt
 from project import db, bcrypt
 
@@ -14,6 +14,7 @@ class User(db.Model):
     email = db.Column(db.String(128), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
     active = db.Column(db.Boolean(), default=True, nullable=False)
+    admin = db.Column(db.Boolean, default=False, nullable=False)
     create_date = db.Column(db.DateTime, default=func.now(), nullable=False)
 
     def __init__(self, username, email, password):
@@ -28,9 +29,10 @@ class User(db.Model):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'active': self.active
+            'active': self.active,
+            'admin': self.admin
         }
-    
+
     def encode_auth_token(self, user_id):
         try:
             payload = {
@@ -42,11 +44,11 @@ class User(db.Model):
                 'sub': user_id
             }
             return jwt.encode(
-                payload, 
+                payload,
                 current_app.config.get('SECRET_KEY'),
                 algorithm='HS256'
             )
-        
+
         except Exception as e:
             return e
 

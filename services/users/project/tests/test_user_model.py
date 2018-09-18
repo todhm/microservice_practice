@@ -15,6 +15,7 @@ class TestUserModel(BaseTestCase):
         self.assertEqual(user.email, 'test@test.com')
         self.assertTrue(user.active)
         self.assertTrue(user.password)
+        self.assertFalse(user.admin)
 
     def test_add_user_duplicate_username(self):
         user = add_user('justatest', 'test@test.com', 'greaterthaneight')
@@ -39,7 +40,7 @@ class TestUserModel(BaseTestCase):
     def test_to_json(self):
         user = add_user('justatest', 'test@test.com', 'greaterthaneight')
         self.assertTrue(isinstance(user.to_json(), dict))
-   
+
     def test_passwords_are_random(self):
         user_one = add_user('justatest', 'test@test.com', 'greaterthaneight')
         user_two = add_user('justatest2', 'test@test2.com', 'greaterthaneight')
@@ -54,6 +55,7 @@ class TestUserModel(BaseTestCase):
         auth_token = user.encode_auth_token(user.id)
         self.assertTrue(isinstance(auth_token, bytes))
         self.assertEqual(User.decode_auth_token(auth_token), user.id)
+
 
 if __name__ == '__main__':
     unittest.main()
