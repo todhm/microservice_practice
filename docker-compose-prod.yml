@@ -15,6 +15,8 @@ services:
             - DATABASE_URL=postgres://postgres:postgres@users-db:5432/users_prod
             - DATABASE_TEST_URL=postgres://postgres:postgres@users-db:5432/users_test
             - SECRET_KEY=${SECRET_KEY} 
+        command: sh /usr/src/app/entrypoint-prod.sh
+
 
     users-db:
         build:
