@@ -6,12 +6,9 @@ import {MemoryRouter as Router} from 'react-router-dom';
 
 const authenticatedList = [true, false];
 
-beforeAll(() => {
-  global.localStorage = {
-     authToken: 'someToken',
-     getItem: function () {
-        return 'someToken'
-     }
+beforeAll(()=>{
+  global.localStorage={
+    getItem:()=>'someToken',
   };
 });
 authenticatedList.forEach((auth)=>{

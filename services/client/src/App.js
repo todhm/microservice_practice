@@ -24,11 +24,17 @@ export default class App extends Component {
     isAuthenticated: false,
   };
 
+  componentWillMount() {
+    if (window.localStorage.getItem('authToken')) {
+      this.setState({ isAuthenticated: true });
+    };
+  };
   componentDidMount() {
-    if(this.props.isAuthenticated){
+    if (window.localStorage.getItem('authToken')) {
       this.getUsers();
-    }
+    };
   }
+
 
   getUsers = () => {
     axios
@@ -46,8 +52,7 @@ export default class App extends Component {
       username: this.state.username,
       email: this.state.email
     };
-    console.log(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`);
-    console.log(data);
+
     axios
       .post(`${process.env.REACT_APP_USERS_SERVICE_URL}/users`, data)
       .then(res => {

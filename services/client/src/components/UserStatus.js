@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+
 export default class UserStatus extends Component{
     state={
         email:'',
@@ -11,7 +12,9 @@ export default class UserStatus extends Component{
     };
 
     componentDidMount(){
-        this.getUserStatus();
+        if (this.props.isAuthenticated) {
+            this.getUserStatus();
+          };    
     }
 
     getUserStatus=(event)=>{
@@ -20,7 +23,7 @@ export default class UserStatus extends Component{
             method: 'get',
             headers:{
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${window.localStorage.authToken}`
+                'Authorization': `Bearer ${window.localStorage.authToken}`
             }
         };
         return axios(options)
@@ -29,7 +32,7 @@ export default class UserStatus extends Component{
                 this.setState({email,id,username,
                 active:String(active),admin:String(admin)})
             })
-            .catch((error)=>{console.log(error.response.data);})
+            .catch((error)=>{console.log(error);})
     }
 
     render(){
@@ -37,7 +40,7 @@ export default class UserStatus extends Component{
         const {isAuthenticated} = this.props; 
         if(!isAuthenticated){
             return(
-                <p>You must logged in to view this. Click <Link to="/login">here </Link>to log back in</p>
+                <p>You must be logged in to view this. Click <Link to="/login">here </Link>to log back in</p>
             )
         }
 

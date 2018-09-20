@@ -22,7 +22,11 @@ describe('Index',()=>{
         it('You should be able to view burger',()=>{
           cy
             .visit('/')
-            .get('.navbar-burger').get('span');
+            .get('.navbar-burger').click()
+            .get('a').contains('User Status').should('not.be.visible')
+            .get('a').contains('Log Out').should('not.be.visible')
+            .get('a').contains('Register')
+            .get('a').contains('Log In');
         })  
         
     })

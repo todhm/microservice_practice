@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export default  (props) => {
   const {isAuthenticated,title} = props; 
-  console.log(isAuthenticated);
   return (
   <nav className="navbar is-dark" aria-label="main navigation">
     <section className="container">
@@ -39,7 +38,7 @@ export default  (props) => {
         <div className="navbar-end">
           {(isAuthenticated)?
           <Link to="/logout" className="navbar-item">
-            Log out
+            Log Out
           </Link>:
           <Fragment>
             <Link to="/register" className="navbar-item">
