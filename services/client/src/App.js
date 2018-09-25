@@ -5,23 +5,19 @@ import UsersList from "./components/UsersList";
 import AddUser from "./components/AddUser";
 import About from "./components/About";
 import NavBar from "./components/NavBar";
-import Form from "./components/Form";
+import Form from "./components/forms/Form";
 import Logout from './components/Logout';
 import UserStatus from './components/UserStatus';
+import Message from './components/Message';
 
 export default class App extends Component {
 
   state = {
     users: [],
-    username: "",
-    email: "",
     title: "TestDriven.io",
-    formData:{
-      username:'',
-      email:'',
-      password:''
-    },
     isAuthenticated: false,
+    messageName: null, 
+    messageType: null,
   };
 
   componentWillMount() {
@@ -112,16 +108,46 @@ export default class App extends Component {
 
   logoutUser=()=>{
     window.localStorage.clear();
-    this.setState({isAuthenticated:false});
+    this.setState({isAuthenticated:false, messageName: null, messageType: null});
+  };
+  loginUser=(token)=>{
+    window.localStorage.setItem('authToken',token);
+    this.setState({isAuthenticated:true});
+    this.getUsers(); 
+    this.createMessage('Welcome!','success');
+  };
+
+  createMessage=(name="Sanity Check",type="success")=>{
+    this.setState({
+      messageName:name, 
+      messageType:type
+    });
+    setTimeout(()=>{
+      this.removeMessage();
+    },3000);
+
+  };
+
+  removeMessage=()=>{
+    this.setState({
+      messageName:null, 
+      messageType:null
+    })
   }
 
   render() {
-    const { users, username, email, title, formData, isAuthenticated } = this.state;
+    const { users,  title, isAuthenticated,messageName, messageType} = this.state;
     return (
       <div>
         <NavBar title={title} isAuthenticated={isAuthenticated}/>
         <section className="section">
           <div className="container">
+          {this.state.messageName && this.state.messageType &&
+          <Message
+            messageName={messageName}
+            messageType={messageType}
+            removeMessage={this.removeMessage}
+          />}
             <div className="columns">
               <div className="column is-half">
                 <br />
@@ -136,19 +162,17 @@ export default class App extends Component {
                   <Route exact path='/login' render={()=>(
                     <Form
                       formType={"Login"}
-                      formData={formData}
-                      handleUserFormSubmit={this.handleUserFormSubmit}
-                      handleFormChange={this.handleFormChange}
                       isAuthenticated={isAuthenticated}
+                      loginUser={this.loginUser}
+                      createMessage={this.createMessage}
                       />
                   )}/>
                   <Route exact path='/register' render={()=>(
                     <Form
                       formType={"Register"}
-                      formData={formData}
-                      handleUserFormSubmit={this.handleUserFormSubmit}
-                      handleFormChange={this.handleFormChange}
+                      loginUser={this.loginUser}
                       isAuthenticated={isAuthenticated}
+                      createMessage={this.createMessage}
                       />
                   )}/>
                   <Route exact path="/about" component={About} />

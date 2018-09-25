@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When given a success message Message renders a snapshot properly 1`] = `
+<div
+  className="notification is-success"
+>
+  <button
+    className="delete"
+    onClick={[Function]}
+  />
+  <span>
+    Hello, World!
+  </span>
+</div>
+`;

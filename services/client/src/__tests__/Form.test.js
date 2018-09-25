@@ -2,7 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import renderer from 'react-test-renderer';
 
-import Form from '../components/Form';
+import Form from '../components/forms/Form';
 
 const testData=[
     {
@@ -36,7 +36,6 @@ const formData={
 describe('When not authenticated',()=>{
 
     testData.forEach((el)=>{
-
         const component = <Form {...el}/>;
         it(`${el.formType} Form renders properly`,()=>{
             const wrapper = shallow(component);
@@ -57,14 +56,25 @@ describe('When not authenticated',()=>{
 
         it(`${el.formType} Form submits the form properly`,()=>{
             const wrapper = shallow(component);
-            expect(el.handleUserFormSubmit).toHaveBeenCalledTimes(0);
-            expect(el.handleFormChange).toHaveBeenCalledTimes(0);
-            const input = wrapper.find('input[type="email"]');
-            input.simulate('change');
-            expect(el.handleFormChange).toHaveBeenCalledTimes(1);
-            wrapper.find('form').simulate('submit', el.formData);
-            expect(el.handleUserFormSubmit).toHaveBeenCalledWith(el.formData);
-            expect(el.handleUserFormSubmit).toHaveBeenCalledTimes(1);
+            wrapper.instance().handleUserFormSubmit = el.handleUserFormSubmit; 
+            wrapper.instance().validateForm = jest.fn(); 
+            wrapper.update(); 
+           const input = wrapper.find('input[type="email"]');
+           expect(wrapper.instance().handleUserFormSubmit).toHaveBeenCalledTimes(0);
+           input.simulate(
+               'change', {target:{name:'email',value:'test@test.com'}}
+           )
+           wrapper.find("form").simulate('submit',el.formData)
+           expect(wrapper.instance().handleUserFormSubmit).toHaveBeenCalledWith(el.formData);
+           expect(wrapper.instance().handleUserFormSubmit).toHaveBeenCalledTimes(1);
+           expect(wrapper.instance().validateForm).toHaveBeenCalledTimes(1);
+        })
+
+        it(`${el.formType} Form should be disabled by default`,()=>{
+            const wrapper = shallow(component);
+            const input = wrapper.find('input[type="submit"]');
+            expect(input.get(0).props.disabled).toEqual(true);
+
         })
     })    
 });

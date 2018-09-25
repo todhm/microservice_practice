@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form Error test FormErrors (with Login form) renders a snapshot properly 1`] = `
+<div>
+  <ul
+    className="validation-list"
+  />
+  <br />
+</div>
+`;
+
+exports[`Form Error test FormErrors (with Register form) renders a snapshot properly 1`] = `
+<div>
+  <ul
+    className="validation-list"
+  />
+  <br />
+</div>
+`;

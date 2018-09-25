@@ -11,6 +11,15 @@ export const signUp=(username,email,password)=>{
 
 }
 
+export const logIn=(cy,email,password)=>{
+    cy
+    .get('input[name="email"]').type(email)
+    .get('input[name="password"]').type(password)
+    .get('input[type="submit"]').click()
+    .wait(100);
+
+}
+
 export const checkStatusLoggedIn=()=>{
     cy.get('.navbar-burger').click();
     cy.get('.navbar-menu').within(()=>{
