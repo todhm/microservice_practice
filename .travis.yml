@@ -4,8 +4,18 @@ services:
     - docker
 
 env:
+    COMMIT: ${TRAVIS_COMMIT::8}
+    MAIN_REPO: https://github.com/todhm/microservice_practice
     DOCKER_COMPOSE_VERSION: 1.21.1
-
+    USERS: test-driven-users
+    USERS_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/users
+    USERS_DB: test-driven-users_db
+    USERS_DB_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/users/project/db
+    CLIENT: test-driven-client
+    CLIENT_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/client
+    SWAGGER: test-driven-swagger
+    SWAGGER_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/swagger
+    SECRET_KEY: my_precious
 before_install:
     - sudo rm /usr/local/bin/docker-compose
     - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
@@ -19,3 +29,6 @@ before_script:
 
 script:
     - bash test.sh
+
+after_success:
+    - bash ./docker-push.sh
